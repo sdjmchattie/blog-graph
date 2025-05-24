@@ -1,3 +1,5 @@
-from .graph import app
+from .state import GraphState
 
-__all__ = ["app"]
+__all__ = [
+    "GraphState",
+]
