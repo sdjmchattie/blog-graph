@@ -4,7 +4,7 @@ from langchain_tavily import TavilySearch
 from graph import GraphState
 
 
-web_search_tool = TavilySearch(max_results=5)
+web_search_tool = TavilySearch(max_results=10)
 
 
 def web_search(state: GraphState) -> Dict[str, Any]:

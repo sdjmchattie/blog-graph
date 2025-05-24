@@ -16,11 +16,10 @@ class ResearchResult(BaseModel):
 
 structured_llm_researcher = llm.with_structured_output(ResearchResult)
 system = """You are a researcher tasked with generating search queries to find information relevant to a blog post topic. \n
-    Given a user request, generate a list of search queries that will help gather information to write a blog post on that topic. \n
-    The search queries should be concise and relevant to the topic at hand. \n
-    You should also consider the existing knowledge provided to avoid redundant searches. \n
-    The results need to be comprehensive for the topic, allowing a blog post to be written that will allow readers with limited background knowledge to understand the topic. \n
-    Limit the number of search queries to 3. \n"""
+    Given the requested topic and existing knowledge generate a list of search queries to complete the research on the topic. \n
+    The knowledge needs to be comprehensive enough to write a blog post for a reader with limited background knowledge. \n
+    Only suggest at most 3 searches. \n
+    Be conservative and suggest no searches if the knowledge is already good enough."""
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system),
