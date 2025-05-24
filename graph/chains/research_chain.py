@@ -19,8 +19,7 @@ system = """You are a researcher tasked with generating search queries to find i
     Given the requested topic and existing knowledge generate a list of search queries to complete the research on the topic. \n
     If a previous draft was done, it has been provided to you as well. \n
     The knowledge needs to be comprehensive enough to write a blog post for a reader with limited background knowledge. \n
-    Only suggest at most 3 searches. \n
-    Be conservative and suggest no searches if the knowledge is already good enough."""
+    Only suggest at most 5 searches."""
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system),
