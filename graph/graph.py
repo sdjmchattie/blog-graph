@@ -3,38 +3,43 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from langgraph.graph import END, StateGraph
-from .nodes import researcher, web_search
+from .nodes import researcher, reviewer, web_search, writer
 from .state import GraphState
 
 RESEARCHER = "researcher"
+REVIEWER = "reviewer"
 WEB_SEARCH = "web_search"
+WRITER = "writer"
 
-def search_or_write(state: GraphState) -> str:
-    """Decide whether to search for more knowledge, or write the blog post.
+def check_draft_quality(state: GraphState) -> str:
+    """Decide whether to do more research or to output the post.
 
     Args:
         state (GraphState): The current state of the graph.
 
     Returns:
-        str: The next action to take, either WEB_SEARCH or END.
+        str: The next action to take, either RESEARCHER or END.
     """
-    print(state)
-    print(len(state.get("knowledge", [])))
-    if len(state.get("search_queries", [])) > 0 and len(state.get("knowledge", [])) < 30:
-        return WEB_SEARCH
+    if state.get("needs_redraft", False):
+        print("Post needs redrafting, going back to researcher.")
+        return RESEARCHER
     else:
         return END
 
 workflow = StateGraph(GraphState)
 workflow.add_node(RESEARCHER, researcher)
+workflow.add_node(REVIEWER, reviewer)
 workflow.add_node(WEB_SEARCH, web_search)
+workflow.add_node(WRITER, writer)
 
 workflow.set_entry_point(RESEARCHER)
+workflow.add_edge(RESEARCHER, WEB_SEARCH)
+workflow.add_edge(WEB_SEARCH, WRITER)
+workflow.add_edge(WRITER, REVIEWER)
 workflow.add_conditional_edges(
-    RESEARCHER,
-    search_or_write
+    REVIEWER,
+    check_draft_quality
 )
-workflow.add_edge(WEB_SEARCH, RESEARCHER)
 
 app = workflow.compile()
 
@@ -47,7 +52,7 @@ def invoke(initial_state: GraphState = None):
     """
     if not initial_state:
         initial_state = GraphState(
-            request = "Using LazyGit to manage repositories" # input("Enter the blog topic: "),
+            request = input("Enter the blog topic: "),
         )
 
     return app.invoke(input = initial_state)

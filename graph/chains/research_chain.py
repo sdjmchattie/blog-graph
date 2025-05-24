@@ -17,13 +17,14 @@ class ResearchResult(BaseModel):
 structured_llm_researcher = llm.with_structured_output(ResearchResult)
 system = """You are a researcher tasked with generating search queries to find information relevant to a blog post topic. \n
     Given the requested topic and existing knowledge generate a list of search queries to complete the research on the topic. \n
+    If a previous draft was done, it has been provided to you as well. \n
     The knowledge needs to be comprehensive enough to write a blog post for a reader with limited background knowledge. \n
     Only suggest at most 3 searches. \n
     Be conservative and suggest no searches if the knowledge is already good enough."""
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system),
-        ("human", "Requested blog topic: \n\n {request} \n\n Existing knowledge: {knowledge}"),
+        ("human", "Requested blog topic: \n\n {request} \n\n Existing knowledge: {knowledge} \n\n Previous draft: \n\n {blog_draft}"),
     ]
 )
 
