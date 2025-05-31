@@ -7,6 +7,7 @@ from graph import GraphState
 def writer(state: GraphState) -> Dict[str, Any]:
     request = state.get("request", "")
     knowledge = "\n".join(state.get("knowledge", []))
+    outline = state.get("outline", "")
     previous_draft = state.get("post_content", "")
     user_feedback = state.get("user_feedback", "")
 
@@ -14,6 +15,7 @@ def writer(state: GraphState) -> Dict[str, Any]:
         {
             "request": request,
             "knowledge": knowledge,
+            "outline": outline,
             "previous_draft": previous_draft,
             "user_feedback": user_feedback,
         }
