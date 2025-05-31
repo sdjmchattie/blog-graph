@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 from .shared_prompts import POST_STYLE
 
-llm = ChatOpenAI(model = os.environ["MODEL"])
+llm = ChatOpenAI(model=os.environ["SMALL_MODEL"])
 
 
 class ReviewResult(BaseModel):
@@ -16,9 +16,9 @@ class ReviewResult(BaseModel):
 
 
 structured_llm_reviewer = llm.with_structured_output(ReviewResult)
-system = """You are the reviewer of a blog post draft. \n
-    Your task is to determine whether the draft is acceptable for publication or if it needs a rewrite. \n
-    If the draft contains sufficient information and is well-written, return true. \n
+system = """You are the reviewer of a blog post draft.\n
+    Your task is to determine whether the draft is acceptable for publication or if it needs a rewrite.\n
+    If the draft contains sufficient information and is well-written, return true.\n
     If the draft is missing information, indicates that sections are incomplete or need more knowledge to write, or it is simply poorly written, return false."""
 prompt = ChatPromptTemplate.from_messages(
     [
