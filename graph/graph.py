@@ -2,8 +2,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import os.path as path
+import sys
+
 from langgraph.graph import END, StateGraph
-from .nodes import HumanInput, researcher, reviewer, web_search, writer
+from .nodes import HumanInput, researcher, reviewer, web_search, Writer
 from .state import GraphState
 
 HUMAN_REVIEW = "human_review"
@@ -11,6 +14,13 @@ RESEARCHER = "researcher"
 REVIEWER = "reviewer"
 WEB_SEARCH = "web_search"
 WRITER = "writer"
+
+if len(sys.argv) > 1:
+    input_file_name = sys.argv[1]
+    output_file_name = path.splitext(input_file_name)[0] + "_out.md"
+else:
+    input_file_name = None
+    output_file_name = "io/blog_post.md"
 
 
 def human_wants_another_draft(state: GraphState) -> str:
@@ -37,7 +47,7 @@ workflow.add_node(
 )
 workflow.add_node(RESEARCHER, researcher)
 workflow.add_node(WEB_SEARCH, web_search)
-workflow.add_node(WRITER, writer)
+workflow.add_node(WRITER, Writer(output_file_name=output_file_name).writer)
 
 workflow.set_entry_point(RESEARCHER)
 workflow.add_edge(RESEARCHER, WEB_SEARCH)
@@ -56,9 +66,12 @@ def invoke(initial_state: GraphState = None):
         input (GraphState): The initial state of the graph.
     """
     if not initial_state:
-        initial_state = GraphState.create(
-            request=input("Enter the blog topic: "),
-        )
+        if input_file_name is not None:
+            request = open(input_file_name, "r").read()
+        else:
+            request = input("Describe your blog: ")
+
+        initial_state = GraphState.create(request=request)
 
     return app.invoke(input=initial_state)
 
