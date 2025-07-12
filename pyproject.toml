@@ -1,34 +1,18 @@
 [project]
 name = "blog-graph"
 version = "0.1.0"
-description = ""
-authors = [
-    { name = "Stuart McHattie" }
-]
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12,<4.0"
+requires-python = ">=3.12"
 dependencies = [
-    "langgraph (>=0.4.7,<0.5.0)",
-    "python-dotenv (>=1.1.0,<2.0.0)",
-    "langchain-tavily (>=0.1.6,<0.2.0)",
-    "langchain-openai (>=0.3.18,<0.4.0)"
+    "langchain-openai>=0.3.27",
+    "langchain-tavily>=0.2.7",
+    "langgraph>=0.5.2",
+    "python-dotenv>=1.1.1",
 ]
 
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-
-[tool.poetry]
-package-mode = false
-packages = [
-    { include = "graph" },
+[dependency-groups]
+dev = [
+    "mypy>=1.16.1",
+    "ruff>=0.12.3",
 ]
-
-[tool.poetry.scripts]
-blog-graph = 'graph.graph:invoke'
-test-search = 'graph.graph:test_search'
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.11.11"
-mypy = "^1.15.0"
