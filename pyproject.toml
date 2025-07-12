@@ -12,7 +12,6 @@ dependencies = [
     "langchain-openai>=0.3.27",
     "langchain-tavily>=0.2.7",
     "langgraph>=0.5.2",
-    "python-dotenv>=1.1.1",
 ]
 
 [project.scripts]
@@ -21,6 +20,5 @@ test_search = "graph:test_search"
 
 [dependency-groups]
 dev = [
-    "mypy>=1.16.1",
     "ruff>=0.12.3",
 ]

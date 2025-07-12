@@ -8,7 +8,6 @@ License-File: LICENSE
 Requires-Dist: langchain-openai>=0.3.27
 Requires-Dist: langchain-tavily>=0.2.7
 Requires-Dist: langgraph>=0.5.2
-Requires-Dist: python-dotenv>=1.1.1
 Dynamic: license-file
 
 # Blog Graph
