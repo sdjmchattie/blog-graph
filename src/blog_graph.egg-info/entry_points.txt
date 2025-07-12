@@ -1,0 +1,3 @@
+[console_scripts]
+generate = graph:invoke
+test_search = graph:test_search

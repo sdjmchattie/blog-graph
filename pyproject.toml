@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "blog-graph"
 version = "0.1.0"
@@ -10,6 +14,10 @@ dependencies = [
     "langgraph>=0.5.2",
     "python-dotenv>=1.1.1",
 ]
+
+[project.scripts]
+generate = "graph:invoke"
+test_search = "graph:test_search"
 
 [dependency-groups]
 dev = [

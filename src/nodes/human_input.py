@@ -1,5 +1,5 @@
 from typing import Any
-from graph import GraphState
+from state import GraphState
 
 
 class HumanInput:
@@ -8,6 +8,6 @@ class HumanInput:
 
     def get_input(self, _state: GraphState) -> dict[str, Any]:
         """Get input from the user."""
-        human_input = input(self.question)
+        human_input = input(self.question.strip() + " ")
 
         return {"user_feedback": human_input}

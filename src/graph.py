@@ -1,13 +1,9 @@
-from dotenv import load_dotenv
-
-load_dotenv()
-
 import os.path as path
 import sys
 
 from langgraph.graph import END, StateGraph
-from .nodes import HumanInput, researcher, reviewer, web_search, Writer
-from .state import GraphState
+from nodes import HumanInput, researcher, web_search, Writer
+from state import GraphState
 
 HUMAN_REVIEW = "human_review"
 RESEARCHER = "researcher"

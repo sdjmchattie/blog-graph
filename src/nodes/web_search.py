@@ -1,7 +1,7 @@
 from typing import Any
 from langchain_tavily import TavilySearch
 
-from graph import GraphState
+from state import GraphState
 
 
 web_search_tool = TavilySearch(max_results=10)

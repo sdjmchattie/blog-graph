@@ -17,7 +17,7 @@ job_description = """You are an experienced blog writer tasked with writing a bl
     The blog post should be suitable for a reader with limited background knowledge on the topic.\n
     The post should stay under 10 minutes of reading time and should be written in Markdown format."""
 
-with open("graph/chains/existing_post.md", "r") as file:
+with open(os.path.join(os.path.dirname(__file__), "existing_post.md"), "r") as file:
     existing_post = file.read()
 
 prompt = ChatPromptTemplate.from_messages(

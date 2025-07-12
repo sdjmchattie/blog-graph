@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
-from graph.chains import research_chain
-from graph import GraphState
+from chains import research_chain
+from state import GraphState
 
 
 def researcher(state: GraphState) -> Dict[str, Any]:
