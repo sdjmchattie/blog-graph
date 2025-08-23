@@ -8,5 +8,6 @@ POST_STYLE = """The post should match the existing style of blogs already writte
     - Use hyphen bullet points for unordered lists.\n
     - Use "1." to number every item in an ordered list.\n
     - Use code blocks for code snippets and surround them with blank lines.\n
+    - Code blocks should always declare the language for syntax highlighting.\n
     - The article should have an introduction without any header that provides conclusions to whet the appetite.\n
     - The final section of the post should be a level 2 header called "Wrapping Up" that summarizes the post and encourages further reading on the topic or to try out what has just been shown."""
